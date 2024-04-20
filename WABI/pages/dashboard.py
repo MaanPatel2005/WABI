@@ -1,13 +1,9 @@
 from WABI.templates import template, ThemeState
-from WABI.components.dashboardComponents import challengeSmallText
-
 import reflex as rx
 
 style1 = {
     "color": "green",
     "font_family": "Helvetica",
-    "border_radius": "10px",
-    "background_color": ThemeState.accent_color,
 }
 style2 = {
     "color": "black",
@@ -16,7 +12,7 @@ style2 = {
 equal_style = {
     "flex": "1",  # Use flexbox to distribute the boxes evenly
     "padding": "10px",
-    "box_sizing": "border-box"  # Ensure padding is included in the box size
+    "box_sizing": "border-box",  # Ensure padding is included in the box size
 }
 
 _user_name = "Wabi"
@@ -44,20 +40,32 @@ def dashboard() -> rx.Component:
         rx.center(
             rx.hstack(
                 rx.box(
-                    rx.center(rx.text("Daily Steps:", style=[style1, style2, equal_style]), width='100%'),
-                    equal_style,
+                    rx.vstack(
+                        rx.center(rx.text("Daily Steps:", style=[style1, style2, equal_style]), width='100%'),
+                        rx.center(rx.text(f"{_steps} steps", weight='bold', style=[style1, style2, equal_style]), width='100%')
+                    ),
+                    **{"border_radius": "10px", "background_color": ThemeState.accent_color},
+                    **equal_style,
                 ),
                 rx.box(
-                    rx.center(rx.text(f"Distance Traveled: {_distance} miles", style=[style1, style2, equal_style]), width='100%'),
-                    equal_style,
+                    rx.vstack(
+                        rx.center(rx.text("Distance Traveled:", style=[style1, style2, equal_style]), width='100%'),
+                        rx.center(rx.text(f"{_distance} miles", weight='bold', style=[style1, style2, equal_style]), width='100%')
+                    ),
+                    **{"border_radius": "10px", "background_color": ThemeState.accent_color},
+                    **equal_style,
                 ),
                 rx.box(
-                    rx.center(rx.text(f"Calories Burned: {_calories} calories", style=[style1, style2, equal_style]), width='100%'),
-                    equal_style,
+                    rx.vstack(
+                        rx.center(rx.text("Calories Burned:", style=[style1, style2, equal_style]), width='100%'),
+                        rx.center(rx.text(f'{_calories} calories', weight='bold', style=[style1, style2, equal_style]), width='100%')
+                    ),
+                    **{"border_radius": "10px", "background_color": ThemeState.accent_color},
+                    **equal_style,
                 ),
                 spacing="9",  # Adjust the spacing as needed
                 width="100%"
             ),
-            width = "100%",
-        )
+            width = "100%",  # Make the component stretch across the whole page
+        ), width='100%', height='100vh'
     )
