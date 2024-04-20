@@ -60,7 +60,7 @@ class SignUpState(rx.State):
         weight = form_data['weight']
         auth.Login.user = username
         # Handle login logic here
-        auth.sign_up(email, password, name, username, height, weight) 
+        auth.sign_up(email, password, name, username, height, weight, 0, 0, 0, 0, "monkey") 
         return rx.redirect('/')
 
 

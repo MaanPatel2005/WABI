@@ -34,7 +34,7 @@ class Login:
 
         
 
-def sign_up(email: str, password: str, name: str, username: str, height: int, weight: int):
+def sign_up(email: str, password: str, name: str, username: str, height: int, weight: int, steps: int, distance: int, calories: int, points: int, animal: str):
     db = firestore.client()
 
     doc_ref = db.collection('users').document(username)
@@ -45,7 +45,12 @@ def sign_up(email: str, password: str, name: str, username: str, height: int, we
         'password': password, 
         'username': username, 
         'height': height, 
-        'weight': weight
+        'weight': weight,
+        'steps': 0,
+        'distance': 0,
+        'calories' : 0,
+        'point' : 0,
+        'animal': "animal"
     }
 
     doc_ref.set(data)
