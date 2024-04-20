@@ -1,5 +1,5 @@
 from WABI.templates import template, ThemeState
-from WABI.components.dashboardComponents import challengeBox
+from WABI.components.dashboardComponents import challengeBox, challengeBodyBox, challengeSmallText, challengeTextBox
 import reflex as rx
 
 style1 = {
@@ -73,8 +73,11 @@ def dashboard() -> rx.Component:
                 spacing="9",  # Adjust the spacing as needed
                 width="100%"
             ),
+            
             width = "100%",  # Make the component stretch across the whole page
         ),
-        # challengeBox(head = 'head',body = 'body', reward = 'reward', img = '/github.svg' , click_func = empty, ThemeState = ThemeState)
-        # , width='100%', height='100vh'
+        challengeBox(head='head', body='body but now it is very long so it has to wrap around and stuff', 
+                     reward = 'reward', img='/github.svg',click_func = empty, ThemeState = ThemeState),
+    width = '100%', height = '100vh'
+    
     )
