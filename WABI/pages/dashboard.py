@@ -57,9 +57,6 @@ def dashboard() -> rx.Component:
         ),
         challengeBox(head='head', body='body but now it is very long so it has to wrap around and stuff', 
                      reward = 'reward', img='/github.svg',click_func = empty, ThemeState = ThemeState),
-        dashboardButton('Daily Steps:', 'Steps',ThemeState),
-
-        
     width = '100%', height = '100vh'
     
     )
