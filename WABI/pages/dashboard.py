@@ -30,6 +30,7 @@ def empty():
     pass
 
 
+
 class StepsState(rx.State):
     steps : str = "0"
     
@@ -84,7 +85,8 @@ def slider_vertical():
         ),
         width="100%", align_items = 'flex-start',
     )
-@template(route="/dashboard", title="Dashboard")
+
+@template(route="/", title="Dashboard")
 # @reflex_local_auth.require_login
 def dashboard() -> rx.Component:
     """The dashboard page.
@@ -156,6 +158,7 @@ def dashboard() -> rx.Component:
                      reward = 'reward', img='/github.svg',click_func = empty, ThemeState = ThemeState),
 
 
+
  
 
         rx.center(
@@ -185,5 +188,4 @@ def dashboard() -> rx.Component:
         ),
         
     width = '100%', height = '100vh', spacing = '5',
-    
     )
