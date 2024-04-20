@@ -16,6 +16,7 @@ equal_style = {
     "box_sizing": "border-box",  # Ensure padding is included in the box size
 }
 
+
 _user_name = "Wabi"
 _level = 10
 _animal = "Jaguar"
@@ -26,7 +27,9 @@ _calories = 800
 def empty():
     pass
 
+
 @template(route="/dashboard", title="Dashboard")
+# @reflex_local_auth.require_login
 def dashboard() -> rx.Component:
     """The dashboard page.
 
