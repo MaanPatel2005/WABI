@@ -1,4 +1,5 @@
 from WABI.templates import template, ThemeState
+from WABI.components.dashboardComponents import challengeSmallText
 
 import reflex as rx
 
@@ -54,7 +55,6 @@ def dashboard() -> rx.Component:
                 spacing="9",  # Adjust the spacing as needed
                 width="100%"
             ),
-            width="100%",
+            width = "100%",
         )
     )
-
