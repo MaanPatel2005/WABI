@@ -2,10 +2,13 @@ import reflex as rx
 
 
 
-
-def challengeBox(*, title, body, reward, img):
+def challengeBox(*, head, body, reward, img, click_func):
     return rx.box()
     pass
+
+def challengeTextBubble(head, body, reward, click_func):
+    return rx.box(challengeTextBox(head,body,reward), startButton(click_func), width = '370px', height = '132px', align_items = 'flex-start')
+
 
 def startButton(click_func: 'function'):
     return rx.button(
@@ -21,7 +24,7 @@ def startButton(click_func: 'function'):
         line_height='20px',
         font_family="""Plus Jakarta Sans, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif""",
         text_align='center',  # Ensures text alignment is centered
-        on_click=click_func  # Event handler for click
+        on_click=click_func()  # Event handler for click
     )
     
 
