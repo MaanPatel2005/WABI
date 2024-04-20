@@ -72,18 +72,27 @@ def slider_horizontal():
         width="100%", align = 'center', justify = 'center'
     )
 def slider_vertical():
-    return rx.vstack(
-        rx.heading(SliderVariationStateV.value),
-        rx.text("Min=0 inches, Max=120 inches"),
-        rx.slider(
+    return rx.hstack(
+        
+        
+        rx.vstack(
+            rx.text('Height', align = 'center', justify = 'center', font_size = "20px", weight = "bold")
+            ,rx.text("Max= 120 inches"), 
+                  rx.slider(
             default_value=60,
             min=0,
             max=120,
             on_change=SliderVariationStateV.set_end,
             orientation = "vertical",
             height = "14em",
-        ),
-        width="100%", align_items = 'flex-start',
+            width = "10%",
+            align = 'center',
+            justify = 'center',
+            ),
+                  rx.text("Min= 0 inches"),
+                  align_items = 'center'),
+        rx.heading(SliderVariationStateV.value),
+        width="100%", align_items = 'center',
     )
 
 @template(route="/", title="Dashboard")
@@ -174,7 +183,6 @@ def dashboard() -> rx.Component:
                     rx.center(rx.hstack(
                         rx.center(rx.box(slider_vertical(),width = '90%'), width = '100%', 
                               height = 'fit-content'), 
-                        rx.text("Female"),rx.switch(default_checked=True),rx.text("Male"),
                             width = '100%', align = 'center', 
                             justify = 'center',
                             height = 'fit-content',), 
