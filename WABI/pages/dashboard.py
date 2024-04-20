@@ -1,22 +1,19 @@
 from WABI.templates import template, ThemeState
 from WABI.components.dashboardComponents import challengeTextBubble
-
 import reflex as rx
 
 style1 = {
     "color": "green",
     "font_family": "Helvetica",
-    "border_radius": "10px",
-    "background_color": ThemeState.accent_color,
 }
 style2 = {
     "color": "black",
     "padding": "10px",
 }
 equal_style = {
-    "width": "250px",  # Assigns the basis as 0, allowing grow and shrink to control the sizing equally
-    "padding_top": "25px",
-    "padding_bottom": "25px"
+    "flex": "1",  # Use flexbox to distribute the boxes evenly
+    "padding": "10px",
+    "box_sizing": "border-box",  # Ensure padding is included in the box size
 }
 
 _user_name = "Wabi"
@@ -47,18 +44,32 @@ def dashboard() -> rx.Component:
         rx.center(
             rx.hstack(
                 rx.box(
-                    rx.center(rx.text(f"Daily Steps: {_steps} steps", style=[style1, style2]), width='100%')
+                    rx.vstack(
+                        rx.center(rx.text("Daily Steps:", style=[style1, style2, equal_style]), width='100%'),
+                        rx.center(rx.text(f"{_steps} steps", weight='bold', style=[style1, style2, equal_style]), width='100%')
+                    ),
+                    **{"border_radius": "10px", "background_color": ThemeState.accent_color},
+                    **equal_style,
                 ),
                 rx.box(
-                    rx.center(rx.text(f"Distance Traveled: {_distance} miles", style=[style1, style2]), width='100%')
+                    rx.vstack(
+                        rx.center(rx.text("Distance Traveled:", style=[style1, style2, equal_style]), width='100%'),
+                        rx.center(rx.text(f"{_distance} miles", weight='bold', style=[style1, style2, equal_style]), width='100%')
+                    ),
+                    **{"border_radius": "10px", "background_color": ThemeState.accent_color},
+                    **equal_style,
                 ),
                 rx.box(
-                    rx.center(rx.text(f"Calories Burned: {_calories} calories", style=[style1, style2]), width='100%')
+                    rx.vstack(
+                        rx.center(rx.text("Calories Burned:", style=[style1, style2, equal_style]), width='100%'),
+                        rx.center(rx.text(f'{_calories} calories', weight='bold', style=[style1, style2, equal_style]), width='100%')
+                    ),
+                    **{"border_radius": "10px", "background_color": ThemeState.accent_color},
+                    **equal_style,
                 ),
                 spacing="9",  # Adjust the spacing as needed
                 width="100%"
             ),
-            width = "100%",
-        ),
-        challengeTextBubble('head', 'body', 'reward', empty)
+            width = "100%",  # Make the component stretch across the whole page
+        ), width='100%', height='100vh'
     )
