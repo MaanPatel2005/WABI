@@ -1,6 +1,7 @@
 """The dashboard page."""
 
 from WABI.templates import template, ThemeState
+from WABI.components.dashboardComponents import challengeSmallText
 
 import reflex as rx
 
@@ -57,6 +58,7 @@ def dashboard() -> rx.Component:
                 width = "100%"
             ),
             width = "100%",
-        )
+        ),
+        challengeSmallText('hi there')
     )
 
