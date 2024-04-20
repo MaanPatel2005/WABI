@@ -3,10 +3,10 @@
 from WABI.templates import template
 
 import reflex as rx
-import reflex_local_auth
+# import reflex_local_auth
 
 @template(route="/dashboard", title="Dashboard")
-@reflex_local_auth.require_login
+# @reflex_local_auth.require_login
 def dashboard() -> rx.Component:
     """The dashboard page.
 
