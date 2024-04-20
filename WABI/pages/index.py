@@ -34,7 +34,7 @@ def spline_example():
 
 
 
-@template(route="/", title="Home")
+@template(route="/easter-egg", title="Feeling Bored")
 def index() -> rx.Component:
     return rx.box(
         rx.vstack(

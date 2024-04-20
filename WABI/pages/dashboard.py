@@ -28,7 +28,7 @@ def empty():
     pass
 
 
-@template(route="/dashboard", title="Dashboard")
+@template(route="/", title="Dashboard")
 # @reflex_local_auth.require_login
 def dashboard() -> rx.Component:
     """The dashboard page.
