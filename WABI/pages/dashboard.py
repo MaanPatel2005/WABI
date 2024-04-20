@@ -1,4 +1,5 @@
 from WABI.templates import template, ThemeState
+from WABI.components.dashboardComponents import challengeTextBubble
 import reflex as rx
 
 style1 = {
@@ -21,6 +22,9 @@ _animal = "Jaguar"
 _steps = 1000
 _distance = 10
 _calories = 800
+
+def empty():
+    pass
 
 @template(route="/dashboard", title="Dashboard")
 def dashboard() -> rx.Component:
