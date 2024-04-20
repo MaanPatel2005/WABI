@@ -96,32 +96,24 @@ equal_style = {
 }
 class Statee(rx.State):
         loaded_data: int = 800
-def dashboardButton(header, unit, ThemeState, **kwargs):
+def dashboardButton(header, unit, color, **kwargs):
     
 
 
     return rx.button(
-        rx.box(rx.vstack(
+        rx.vstack(
             rx.text(header, font_family = 'Helvetica Neue', color = 'black'),
             rx.text(f'{Statee.loaded_data} {unit}', font_family='Plus Jakarta Sans', weight='bold',font_size = '1.8em', color = 'black'),
-        )),
+            width = '100%',
+            align_items = 'center',
+        ),
         height = 'fit-content',
         width = '100%',
         **kwargs
         ,border_radius = "10px"
-        ,background_color = ThemeState.accent_color
+        ,background_color = color
     )
 
-#rx.box(
-    #rx.vstack(
-        #rx.center(rx.text("Daily Steps:",font_family='Helvetica Neue', style=[style1, style2, equal_style]), width='100%'),
-        #rx.center(rx.text(f"{_steps} steps",font_family='Plus Jakarta Sans', weight='bold', style=[style1, style2, equal_style],font_size = '1.5em'), width='100%')
 
-        #),
-       # **{"border_radius": "10px", "background_color": ThemeState.accent_color},
-       # **equal_style,
-   # ),
-
-    
 
 
