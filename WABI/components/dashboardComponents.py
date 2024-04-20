@@ -2,7 +2,7 @@ import reflex as rx
 
 
 
-def challengeBox(*, head, body, reward, img, click_func, ThemeState):
+def challengeBox(head, body, reward, img, click_func, ThemeState):
     return rx.box( challengeImg(img),
                 challengeTextBubble(head, body, reward, click_func, ThemeState), height = 'min-content', width = '29%'
                   , backgroundColor = f'{ThemeState.accent_color}', border_radius = '10px', justify_content = 'flex-end',
@@ -115,5 +115,9 @@ def dashboardButton(header, unit, color, **kwargs):
     )
 
 
+class challengeState(rx.State):
+    pass
 
-
+def dashboardChallenges(clist):
+    num = len(clist)
+    return rx.hstack(challengeBox(*c, flex = f'{(100-28*num)/(num-1) if num > 1 else 0}%', height = '40%') for c in clist)
