@@ -10,7 +10,7 @@ style2 = {
     "padding": "10px",
 }
 equal_style = {
-    "flex": "1",  # Use flexbox to distribute the boxes evenly
+    "flex": "20%",  # Use flexbox to distribute the boxes evenly
     "padding": "10px",
     "box_sizing": "border-box",  # Ensure padding is included in the box size
 }
@@ -41,24 +41,24 @@ def dashboard() -> rx.Component:
             rx.hstack(
                 rx.box(
                     rx.vstack(
-                        rx.center(rx.text("Daily Steps:", style=[style1, style2, equal_style]), width='100%'),
-                        rx.center(rx.text(f"{_steps} steps", weight='bold', style=[style1, style2, equal_style]), width='100%')
+                        rx.center(rx.text("Daily Steps:",font_family='Helvetica Neue', style=[style1, style2, equal_style]), width='100%'),
+                        rx.center(rx.text(f"{_steps} steps",font_family='Plus Jakarta Sans', weight='bold', style=[style1, style2, equal_style]), width='100%')
                     ),
                     **{"border_radius": "10px", "background_color": ThemeState.accent_color},
                     **equal_style,
                 ),
                 rx.box(
                     rx.vstack(
-                        rx.center(rx.text("Distance Traveled:", style=[style1, style2, equal_style]), width='100%'),
-                        rx.center(rx.text(f"{_distance} miles", weight='bold', style=[style1, style2, equal_style]), width='100%')
+                        rx.center(rx.text("Distance Traveled:",font_family='Helvetica Neue', style=[style1, style2, equal_style]), width='100%'),
+                        rx.center(rx.text(f"{_distance} miles",font_family='Plus Jakarta Sans', weight='bold', style=[style1, style2, equal_style]), width='100%')
                     ),
                     **{"border_radius": "10px", "background_color": ThemeState.accent_color},
                     **equal_style,
                 ),
                 rx.box(
                     rx.vstack(
-                        rx.center(rx.text("Calories Burned:", style=[style1, style2, equal_style]), width='100%'),
-                        rx.center(rx.text(f'{_calories} calories', weight='bold', style=[style1, style2, equal_style]), width='100%')
+                        rx.center(rx.text("Calories Burned:",font_family='Helvetica Neue', style=[style1, style2, equal_style]), width='100%'),
+                        rx.center(rx.text(f'{_calories} calories',font_family='Plus Jakarta Sans', weight='bold', style=[style1, style2, equal_style]), width='100%')
                     ),
                     **{"border_radius": "10px", "background_color": ThemeState.accent_color},
                     **equal_style,
