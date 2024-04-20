@@ -1,5 +1,5 @@
 from WABI.templates import template, ThemeState
-from WABI.components.dashboardComponents import challengeSmallText
+from WABI.components.dashboardComponents import challengeTextBubble
 
 import reflex as rx
 
@@ -25,6 +25,9 @@ _animal = "Jaguar"
 _steps = 1000
 _distance = 10
 _calories = 800
+
+def empty():
+    pass
 
 @template(route="/dashboard", title="Dashboard")
 def dashboard() -> rx.Component:
@@ -56,5 +59,6 @@ def dashboard() -> rx.Component:
                 width="100%"
             ),
             width = "100%",
-        )
+        ),
+        challengeTextBubble('head', 'body', 'reward', empty)
     )
