@@ -80,3 +80,48 @@ def challengeSmallText(text:str):
                           font_family = "Plus Jakarta Sans, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans','Liberation Sans', sans-serif",
                           position = 'relative', width = '100%', height = 'min-content', flex_direction = 'column'),
                           box_sizing = 'border-box')
+
+style1 = {
+    "color": "green",
+    "font_family": "Helvetica",
+}
+style2 = {
+    "color": "black",
+    "padding": "10px",
+}
+equal_style = {
+    "flex": "20%",  # Use flexbox to distribute the boxes evenly
+    "padding": "10px",
+    "box_sizing": "border-box",  # Ensure padding is included in the box size
+}
+class Statee(rx.State):
+        loaded_data: int = 800
+def dashboardButton(header, unit, ThemeState, **kwargs):
+    
+
+
+    return rx.button(
+        rx.box(rx.vstack(
+            rx.text(header, font_family = 'Helvetica Neue', color = 'black'),
+            rx.text(f'{Statee.loaded_data} {unit}', font_family='Plus Jakarta Sans', weight='bold',font_size = '1.8em', color = 'black'),
+        )),
+        height = 'fit-content',
+        width = '100%',
+        **kwargs
+        ,border_radius = "10px"
+        ,background_color = ThemeState.accent_color
+    )
+
+#rx.box(
+    #rx.vstack(
+        #rx.center(rx.text("Daily Steps:",font_family='Helvetica Neue', style=[style1, style2, equal_style]), width='100%'),
+        #rx.center(rx.text(f"{_steps} steps",font_family='Plus Jakarta Sans', weight='bold', style=[style1, style2, equal_style],font_size = '1.5em'), width='100%')
+
+        #),
+       # **{"border_radius": "10px", "background_color": ThemeState.accent_color},
+       # **equal_style,
+   # ),
+
+    
+
+

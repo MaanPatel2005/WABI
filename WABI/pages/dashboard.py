@@ -1,5 +1,5 @@
 from WABI.templates import template, ThemeState
-from WABI.components.dashboardComponents import challengeBox, challengeBodyBox, challengeSmallText, challengeTextBox
+from WABI.components.dashboardComponents import challengeBox, challengeBodyBox, challengeSmallText, challengeTextBox, dashboardButton
 import reflex as rx
 
 style1 = {
@@ -46,30 +46,9 @@ def dashboard() -> rx.Component:
         rx.center(rx.text(f"Lvl {_level} {_animal}"), width='100%'),
         rx.center(
             rx.hstack(
-                rx.box(
-                    rx.vstack(
-                        rx.center(rx.text("Daily Steps:",font_family='Helvetica Neue', style=[style1, style2, equal_style]), width='100%'),
-                        rx.center(rx.text(f"{_steps} steps",font_family='Plus Jakarta Sans', weight='bold', style=[style1, style2, equal_style]), width='100%')
-                    ),
-                    **{"border_radius": "10px", "background_color": ThemeState.accent_color},
-                    **equal_style,
-                ),
-                rx.box(
-                    rx.vstack(
-                        rx.center(rx.text("Distance Traveled:",font_family='Helvetica Neue', style=[style1, style2, equal_style]), width='100%'),
-                        rx.center(rx.text(f"{_distance} miles",font_family='Plus Jakarta Sans', weight='bold', style=[style1, style2, equal_style]), width='100%')
-                    ),
-                    **{"border_radius": "10px", "background_color": ThemeState.accent_color},
-                    **equal_style,
-                ),
-                rx.box(
-                    rx.vstack(
-                        rx.center(rx.text("Calories Burned:",font_family='Helvetica Neue', style=[style1, style2, equal_style]), width='100%'),
-                        rx.center(rx.text(f'{_calories} calories',font_family='Plus Jakarta Sans', weight='bold', style=[style1, style2, equal_style]), width='100%')
-                    ),
-                    **{"border_radius": "10px", "background_color": ThemeState.accent_color},
-                    **equal_style,
-                ),
+                dashboardButton('Daily Steps:', 'steps', ThemeState, flex = '20%'),
+                dashboardButton('Distance Traveled:', 'miles', ThemeState, flex = '20%'),
+                dashboardButton('Calories Burned:', 'calories', ThemeState, flex = '20%'),
                 spacing="9",  # Adjust the spacing as needed
                 width="100%"
             ),
@@ -78,6 +57,9 @@ def dashboard() -> rx.Component:
         ),
         challengeBox(head='head', body='body but now it is very long so it has to wrap around and stuff', 
                      reward = 'reward', img='/github.svg',click_func = empty, ThemeState = ThemeState),
+        dashboardButton('Daily Steps:', 'Steps',ThemeState),
+
+        
     width = '100%', height = '100vh'
     
     )
