@@ -7,13 +7,10 @@ import reflex as rx
 from rxconfig import config
 import WABI.components.welcome as auth
 import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import firestore
-from google.cloud.firestore_v1.base_query import FieldFilter
-
+from firebase_admin import firestore, credentials
 cred = credentials.Certificate("WABI\\serviceAccountKey.json")
-firebase_admin.initialize_app(cred)
-db = firestore.Client()
+
+
 
 @template(route="/authenticate", title="Sign-In/Sign-Up")
 def authenticate() -> rx.Component:
@@ -26,7 +23,9 @@ def authenticate() -> rx.Component:
             rx.chakra.tab_panel(
                 login()
                 ),
-            rx.chakra.tab_panel("Text from tab 2."),
+            rx.chakra.tab_panel(
+                signup()
+            ),
         ),
         bg="black",
         color="white",
@@ -61,16 +60,7 @@ class SignUpState(rx.State):
         weight = form_data['weight']
         auth.Login.user = username
         # Handle login logic here
-        doc_ref = db.collection('users').document(username)
-        data = {
-            'name': name,
-            'email': email,
-            'passkey': password, 
-            'username': username, 
-            'height': height, 
-            'weight': weight
-        }
-        doc_ref.set(data)    
+        auth.sign_up(email, password, name, username, height, weight) 
         return rx.redirect('/')
 
 
@@ -105,7 +95,7 @@ def signup():
                     name="email",
                 ),
                 rx.input(
-                    placeholder="Passkey",
+                    placeholder="Password",
                     type_="password",
                     name="password",
                 ),
@@ -122,7 +112,7 @@ def signup():
                     name="weight",
                 )),
                 rx.button("Submit", type = "submit"),
-                on_submit=LoginState.handle_login,
+                on_submit=SignUpState.handle_sign_up,
                 reset_on_submit=True,
             ),
         )

@@ -9,29 +9,32 @@ firebase_admin.initialize_app(cred)
 
 
 class Login:
-    def __init__(self, username: str, passkey: str):
+    user = ""
+    def __init__(self, username: str, password: str):
         self.db = firestore.client()
         self.username = username
-        self.passkey = passkey
+        self.password = password
     
     def sign_in(self) -> str:
         self.db = firestore.client()
         query = self.db.collection('users').where(filter=FieldFilter('username', "==", self.username))
-        query = query.where(filter=FieldFilter('passkey', '==', self.passkey))
+        query = query.where(filter=FieldFilter('password', '==', self.password))
         docs = query.stream()
         try:
             nextelem = next(docs)
             if nextelem is not None:
                 return self.username
             else:
+                print("Wasn't successful login")
                 return None
         except:
+            print("Wasn't successful login")
             return None
         
 
         
 
-def sign_up(email: str, passkey: str, name: str, username: str, height: int, weight: int):
+def sign_up(email: str, password: str, name: str, username: str, height: int, weight: int):
     db = firestore.client()
 
     doc_ref = db.collection('users').document(username)
@@ -39,7 +42,7 @@ def sign_up(email: str, passkey: str, name: str, username: str, height: int, wei
     data = {
         'name': name, 
         'email': email, 
-        'passkey': passkey, 
+        'password': password, 
         'username': username, 
         'height': height, 
         'weight': weight
