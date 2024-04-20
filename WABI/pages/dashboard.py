@@ -1,6 +1,6 @@
 """The dashboard page."""
 
-from WABI_Test.templates import template, ThemeState
+from WABI.templates import template, ThemeState
 
 import reflex as rx
 
