@@ -1,5 +1,3 @@
-"""The dashboard page."""
-
 from WABI.templates import template, ThemeState
 from WABI.components.dashboardComponents import challengeSmallText
 
@@ -16,11 +14,10 @@ style2 = {
     "padding": "10px",
 }
 equal_style = {
-        "width": "250px", # Assigns the basis as 0, allowing grow and shrink to control the sizing equally
-        "padding_top": "25px",
-        "padding_bottom": "25px"
-    }
-
+    "width": "250px",  # Assigns the basis as 0, allowing grow and shrink to control the sizing equally
+    "padding_top": "25px",
+    "padding_bottom": "25px"
+}
 
 _user_name = "Wabi"
 _level = 10
@@ -28,6 +25,7 @@ _animal = "Jaguar"
 _steps = 1000
 _distance = 10
 _calories = 800
+
 @template(route="/dashboard", title="Dashboard")
 def dashboard() -> rx.Component:
     """The dashboard page.
@@ -46,19 +44,17 @@ def dashboard() -> rx.Component:
         rx.center(
             rx.hstack(
                 rx.box(
-                    rx.text(f"Daily Steps: {_steps} steps", style=[style1, style2, equal_style])
+                    rx.center(rx.text(f"Daily Steps: {_steps} steps", style=[style1, style2]), width='100%')
                 ),
                 rx.box(
-                    rx.text(f"Distance Traveled: {_distance} miles", style=[style1, style2, equal_style])
+                    rx.center(rx.text(f"Distance Traveled: {_distance} miles", style=[style1, style2]), width='100%')
                 ),
                 rx.box(
-                    rx.text(f"Calories Burned: {_calories} calories", style=[style1, style2, equal_style])
+                    rx.center(rx.text(f"Calories Burned: {_calories} calories", style=[style1, style2]), width='100%')
                 ),
-                spacing="9", # Adjust the spacing as needed
-                width = "100%"
+                spacing="9",  # Adjust the spacing as needed
+                width="100%"
             ),
             width = "100%",
-        ),
-        challengeSmallText('hi there')
+        )
     )
-
