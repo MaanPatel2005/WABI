@@ -3,21 +3,15 @@ import reflex as rx
 
 
 def challengeBox(*, head, body, reward, img, click_func, ThemeState):
-    try: 
-        rx.console_log("challengeBox About to run: ")
-        return rx.box(rx.image(src = img, width = '100%', height = '60%'), 
-                  challengeTextBubble(head, body, reward, click_func, ThemeState), height = 'max-content', width = '30%'
-                  , backgroundColor = f'{ThemeState.accent_color}', justify_content = 'flex-end')
-    except: 
-        rx.console_log("challengeBox Didn't run as it should have...")
+    return rx.box(rx.image(src = img, width = '100%', height = '60%'), 
+                challengeTextBubble(head, body, reward, click_func, ThemeState), height = 'max-content', width = '29%'
+                  , backgroundColor = f'{ThemeState.accent_color}', justify_content = 'flex-end', border_radius = '10px')
 
 def challengeTextBubble(head, body, reward, click_func, ThemeState):
-    try: 
-        rx.console_log("ChallengeTextBubble About to run: ")
-        return rx.box(challengeTextBox(head,body,reward, ThemeState), 
-                  startButton(click_func, ThemeState), width = '100%', height = 'max-content', padding_left = '5%')
-    except: 
-        rx.console_log("ChallengeTextBubble ended up failing")
+    rx.console_log("ChallengeTextBubble About to run: ")
+    return rx.box(challengeTextBox(head,body,reward, ThemeState), 
+                startButton(click_func, ThemeState), width = '100%', 
+                height = 'max-content', padding_left = '5%', background_color = 'blue')
 
 
 def startButton(click_func: 'function', ThemeState):
@@ -25,7 +19,8 @@ def startButton(click_func: 'function', ThemeState):
         "Start Now",
         width='90px',
         height='36px',
-        left = '70%',
+        left = '65%',
+        padding_right = '5%',
         position = 'relative',
         align_items='center',  # Ensures content is centered within the button
         justify_content='center',  # Additionally centers content horizontally
@@ -66,13 +61,13 @@ def challengeHeaderBox(text, ThemeState):
                 position = 'relative')
 
 def challengeBodyBox(body, reward):
-    rx.console_log('challengeBodyBox')
     return rx.box(rx.vstack(challengeSmallText(body),challengeSmallText(reward), 
-                            spacing = '4'), 
+                            spacing = '1'), 
                             align_items = 'flex-start',
-                            background_color = 'blue')
+                            height = 'min-content',
+                            width = '100%')
 
 def challengeSmallText(text:str):
     return rx.box(rx.text(text, color = 'black', font_size = '14px', line_height = '20px', 
                           font_family = "Plus Jakarta Sans, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans','Liberation Sans', sans-serif",
-                          position = 'absolute', width = '100%', height = 'min-content', flex_direction = 'column'))
+                          position = 'relative', width = '100%', height = 'min-content', flex_direction = 'column'))
