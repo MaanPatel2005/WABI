@@ -1,4 +1,4 @@
-.dashboardHeaderFont {
+.dashboardBubbleHeaderFont {
     color: #200a5c;
     font-size: 14px;
     line-height: 20px;
@@ -11,8 +11,8 @@
     height: min-content;
     white-space: nowrap;
     flex-direction: column;
-  }
-  .dashboard {
+}
+.dashboardBubbleBodyFont {
     color: #200a5c;
     font-size: 20px;
     line-height: 28px;
@@ -26,4 +26,105 @@
     height: min-content;
     white-space: nowrap;
     flex-direction: column;
-  }
+}
+  .dashboardTopHeaderFont {
+    color: #200a5c;
+    font-size: 28px;
+    line-height: 35px;
+    font-weight: bold;
+    font-family: Plus Jakarta Sans, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+      'Liberation Sans', sans-serif;
+    letter-spacing: -0.7px;
+    position: absolute;
+    left: 521.5px;
+    top: 115px;
+    width: min-content;
+    height: min-content;
+    text-align: center;
+    align-items: center;
+    white-space: nowrap;
+    flex-direction: column;
+}
+
+.usernameFont {
+  color: #200a5c;
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 600;
+  font-family: Plus Jakarta Sans, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+  position: absolute;
+  left: 129.4141px;
+  top: -0.5px;
+  width: min-content;
+  height: min-content;
+  text-align: center;
+  align-items: center;
+  white-space: nowrap;
+  flex-direction: column;
+}
+
+.levelFont {
+  color: #220f57;
+  font-size: 14px;
+  line-height: 20px;
+  font-family: Plus Jakarta Sans, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+  position: absolute;
+  left: 142.5195px;
+  top: 0;
+  width: min-content;
+  height: min-content;
+  text-align: center;
+  align-items: center;
+  white-space: nowrap;
+  flex-direction: column;
+}
+
+.dailyChallengeFont {
+  color: #200a5c;
+  font-size: 22px;
+  line-height: 27.5px;
+  font-weight: bold;
+  font-family: Plus Jakarta Sans, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+  letter-spacing: -0.55px;
+  position: absolute;
+  left: 0;
+  top: -1px;
+  width: min-content;
+  height: min-content;
+  white-space: nowrap;
+  flex-direction: column;
+}
+
+.challengeTitleFont {
+  color: #200a5c;
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: bold;
+  font-family: Plus Jakarta Sans, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+  letter-spacing: -0.33px;
+  position: absolute;
+  left: 0;
+  top: -0.5px;
+  width: min-content;
+  height: min-content;
+  white-space: nowrap;
+  flex-direction: column;
+}
+
+.challengeBodyFont {
+  color: #220f57;
+  font-size: 14px;
+  line-height: 20px;
+  font-family: Plus Jakarta Sans, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 218.0938px;
+  height: min-content;
+  flex-direction: column;
+}
