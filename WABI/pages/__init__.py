@@ -3,4 +3,4 @@ from .index import index
 from .settings import settings
 from .leaderboard import leaderboard
 from .buddy_finder import buddy_finder
-from .login import authenticate
+from WABI.components.login import authenticate

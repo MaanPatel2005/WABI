@@ -14,22 +14,26 @@ cred = credentials.Certificate("WABI\\serviceAccountKey.json")
 
 @template(route="/authenticate", title="Sign-In/Sign-Up")
 def authenticate() -> rx.Component:
-    return rx.chakra.tabs(
-        rx.chakra.tab_list(
-            rx.chakra.tab("Sign-In"),
-            rx.chakra.tab("Sign-Up"),
-        ),
-        rx.chakra.tab_panels(
-            rx.chakra.tab_panel(
-                login()
-                ),
-            rx.chakra.tab_panel(
-                signup()
+    return rx.chakra.center(  # Use Chakra UI Center component for centering
+        rx.chakra.tabs(
+            rx.chakra.tab_list(
+                rx.chakra.tab("Sign-In"),
+                rx.chakra.tab("Sign-Up"),
             ),
+            rx.chakra.tab_panels(
+                rx.chakra.tab_panel(
+                    login()
+                ),
+                rx.chakra.tab_panel(
+                    signup()
+                ),
+            ),
+            bg="black",
+            color="white",
+            shadow="lg",
         ),
-        bg="black",
-        color="white",
-        shadow="lg",
+        height="70vh",
+        width="100%"  # Set the height to 100vh for vertical centering
     )
 
 
