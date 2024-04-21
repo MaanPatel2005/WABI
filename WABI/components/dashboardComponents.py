@@ -2,11 +2,11 @@ import reflex as rx
 
 
 
-def challengeBox(head, body, reward, img, click_func, ThemeState):
+def challengeBox(head, body, reward, img, click_func, ThemeState, **kwargs):
     return rx.box( challengeImg(img),
                 challengeTextBubble(head, body, reward, click_func, ThemeState), height = 'min-content', width = '29%'
                   , backgroundColor = f'{ThemeState.accent_color}', border_radius = '10px', justify_content = 'flex-end',
-                  box_sizing = 'border-box', padding_bottom = '1%')
+                   padding_bottom = '1%', **kwargs)
 
 def challengeImg(img):
     return rx.image(src = img, width = '100%', height = '200px')
@@ -119,4 +119,11 @@ class challengeState(rx.State):
 
 def dashboardChallenges(clist):
     num = len(clist)
-    return rx.hstack(challengeBox(*c, flex = f'{(100-28*num)/(num-1) if num > 1 else 0}%', height = '40%') for c in clist)
+    return rx.flex(*(challengeBox(*c) for c in clist), width = '100%', justify = 'between' if num > 1 else 'center')
+
+def calsBurned(steps):
+    return round(steps/20)
+
+def distanceTraveled(steps, height):
+    calc = (height * steps) / 153414.0436
+    return round(calc, 2)
