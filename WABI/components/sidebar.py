@@ -7,30 +7,19 @@ import reflex as rx
 
 def sidebar_header() -> rx.Component:
     """Sidebar header.
-
     Returns:
         The sidebar header component.
     """
-    return rx.hstack(
-        # The logo.
-        rx.color_mode_cond(
-            rx.image(src="/reflex_black.svg", height="2em"),
-            rx.image(src="/reflex_white.svg", height="2em"),
-        ),
-        rx.spacer(),
-        rx.link(
-            rx.button(
-                rx.icon("github"),
-                color_scheme="gray",
-                variant="soft",
+    return rx.vstack(
+        rx.center(
+            rx.color_mode_cond(
+                rx.image(src="/monkey.png", height="10em"),
+                rx.image(src="/monkey.png", height="10em"),
             ),
-            href="https://github.com/reflex-dev/reflex",
+            padding_right='75px',
+            padding_left='75px'
         ),
-        align="center",
-        width="100%",
         border_bottom=styles.border,
-        padding_x="1em",
-        padding_y="2em",
     )
 
 
@@ -109,8 +98,10 @@ def sidebar() -> rx.Component:
     Returns:
         The sidebar component.
     """
-    # Get all the decorated pages and add them to the sidebar.
     from reflex.page import get_decorated_pages
+
+    # Exclude the Sign-In/Sign-Up page from the sidebar
+    excluded_routes = ["/authenticate"]  # Add any other routes you want to exclude
 
     return rx.box(
         rx.vstack(
@@ -121,7 +112,7 @@ def sidebar() -> rx.Component:
                         text=page.get("title", page["route"].strip("/").capitalize()),
                         url=page["route"],
                     )
-                    for page in get_decorated_pages()
+                    for page in get_decorated_pages() if page["route"] not in excluded_routes
                 ],
                 width="100%",
                 overflow_y="auto",

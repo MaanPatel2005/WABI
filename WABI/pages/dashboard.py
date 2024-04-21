@@ -1,8 +1,11 @@
 from WABI.templates import template, ThemeState
-from WABI.components.dashboardComponents import challengeBox, challengeBodyBox, challengeSmallText, challengeTextBox, dashboardButton
+from WABI.components.dashboardComponents import challengeBox, challengeBodyBox, challengeSmallText, challengeTextBox, dashboardButton, dashboardChallenges 
 import reflex as rx
 from firebase_admin import firestore
 from ..components.welcome import Login
+from google.cloud.firestore_v1.base_query import FieldFilter
+from firebase_admin import firestore
+db = firestore.client()
 
 style1 = {
     "color": "green",
@@ -18,11 +21,8 @@ equal_style = {
     "box_sizing": "border-box",  # Ensure padding is included in the box size
 }
 
-
-
-
-_user_name = "Wabi"
-_level = 10
+_user_name = Login.user
+_points = 0
 _animal = "Jaguar"
 _steps = 1000
 _distance = 10
@@ -37,7 +37,6 @@ class StepsState(rx.State):
     steps : str = "0"
     
     def update_steps(self, val):
-        rx.console_log(val)
         if str(val).isdigit():
             self.steps=val
             db = firestore.client()
@@ -122,21 +121,22 @@ def dashboard() -> rx.Component:
     Returns:
         The UI for the dashboard page.
     """
+
     template_color = ThemeState.accent_color
     #template_color = f'{template_color}'
-    return rx.vstack(
+    return (rx.vstack(
         rx.center(
             rx.heading("Jungle Dashboard", size="8"),
             width="100%"
         ),
         rx.center(rx.avatar(src="/snake_head.png"), width='100%'),
-        rx.center(rx.text(f"Explorer {_user_name}"), width='100%'),
-        rx.center(rx.text(f"Lvl {_level} {_animal}"), width='100%'),
+        rx.center(rx.text(f"Explorer {_user_name}"), width='100%', font_size = "20px"),
+        rx.center(rx.text(f"{_points} Banana Points"), width='100%', font_size = "20px"),
         rx.center(
             rx.hstack(
                 rx.popover.root(
     rx.popover.trigger(
-        dashboardButton('Daily Steps:', 'steps', 'pink', flex = '20%')
+        dashboardButton('Daily Steps:', 'steps', 'pink', db.collection("users").document('maanvp').get().to_dict()['steps'], flex = '20%')
     ),
     rx.popover.content(
         rx.box(
@@ -149,11 +149,11 @@ def dashboard() -> rx.Component:
 ),
                 rx.popover.root(
     rx.popover.trigger(
-        dashboardButton('Distance Traveled:', 'miles', 'pink', flex = '20%')
+        dashboardButton('Distance Traveled:', 'miles', 'pink', db.collection("users").document('maanvp').get().to_dict()['distance'], flex = '20%')
     ),
     rx.popover.content(
         rx.box(
-            rx.text("Distance Traveled", align = 'center'),
+            rx.text("Calculated by dividing the number of steps taken by 20." , align = 'center'),
             spacing="2",
         ),
         style={"width": 200},
@@ -161,11 +161,11 @@ def dashboard() -> rx.Component:
 ),
                 rx.popover.root(
     rx.popover.trigger(
-        dashboardButton('Calories Burned:', 'calories', 'pink', flex = '20%')
+        dashboardButton('Calories Burned:', 'calories', 'pink', db.collection("users").document('maanvp').get().to_dict()['calories'], flex = '20%')
     ),
     rx.popover.content(
         rx.box(
-            rx.text("Popover content"),
+            rx.text("Calculated by multiplying the number of steps taken and height in inches then dividing by 153414.0436."),
             spacing="2",
         ),
         style={"width": 200},
@@ -181,13 +181,23 @@ def dashboard() -> rx.Component:
             width = "100%",  # Make the component stretch across the whole page
         ),
 
+        rx.center(
+            rx.box(
+                rx.heading("Daily Jungle Challenges", size="6"),
+                padding="25px",
+            ),
+            width="100%"
+        ),
+
         
-        challengeBox(head='head', body='body but now it is very long so it has to wrap around and stuff', 
-                     reward = 'reward', img='/github.svg',click_func = empty, ThemeState = ThemeState),
+        dashboardChallenges([['Skibbidy','Fanum Tax', '25 Bananas', 'paneleft.svg', empty, ThemeState],
+                             ['Skibbidy','Fanum Axe', '25 Bananas', 'paneleft.svg', empty, ThemeState],
+                             ['Skibbidy','Fanum Axe', '25 Bananas', 'paneleft.svg', empty, ThemeState]]),
 
 
 
- 
+        rx.spacer(),
+        rx.spacer(),
 
         rx.center(
             rx.vstack(
@@ -196,18 +206,15 @@ def dashboard() -> rx.Component:
                     slider_horizontal(),
                     rx.spacer(),
                     rx.spacer(),
-                    rx.spacer(),
-                    
-                    rx.spacer(),
                     rx.center(rx.hstack(
-                        rx.center(rx.box(slider_vertical(),width = '90%'), width = '100%', 
+                        rx.center(rx.box(slider_vertical(),width = '90%'), rx.image(src = 'quandale.png', width = '55%'),width = '100%', 
                               height = 'fit-content'), 
                             width = '100%', align = 'center', 
                             justify = 'center',
                             height = 'fit-content',), 
                             width = '100%',
                     ),
-                     width = '40%', spacing = '5', background_color = '#9ADE7D', border_radius = '20px',
+                     width = '40%', spacing = '5', background_color = '#9ADE7D', border_radius = '20px', padding = "20px"
                     ),
             spacing = '5',
             width = '100%',
@@ -215,4 +222,4 @@ def dashboard() -> rx.Component:
         ),
         
     width = '100%', height = '100vh', spacing = '5',
-    )
+    ))
