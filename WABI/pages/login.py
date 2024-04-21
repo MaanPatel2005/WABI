@@ -46,6 +46,7 @@ class LoginState(rx.State):
         print(val)
         if val:
             auth.Login.user = username
+            print(auth.Login.user)
             return rx.redirect('/')
         else:
             return rx.redirect('/authenticate')

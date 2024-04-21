@@ -12,7 +12,6 @@ def challengeImg(img):
     return rx.image(src = img, width = '100%', height = '200px')
 
 def challengeTextBubble(head, body, reward, click_func, ThemeState):
-    rx.console_log("ChallengeTextBubble About to run: ")
     return rx.box(challengeTextBox(head,body,reward, ThemeState), 
                 startButton(click_func, ThemeState), width = '100%', 
                 height = 'max-content', padding_left = '5%',

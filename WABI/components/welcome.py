@@ -14,7 +14,7 @@ class Login:
         self.db = firestore.client()
         self.username = username
         self.password = password
-    
+        self.user = username
     def sign_in(self) -> str:
         self.db = firestore.client()
         query = self.db.collection('users').where(filter=FieldFilter('username', "==", self.username))
