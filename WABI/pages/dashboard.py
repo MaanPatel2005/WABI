@@ -38,11 +38,10 @@ class StepsState(rx.State):
     
     def update_steps(self, val):
         if str(val).isdigit():
-            self.set_steps(val)
+            self.steps=val
             db = firestore.client()
             db.collection('users').document(Login.user).update({'steps': val})
-        else:
-            self.steps = self.steps
+
 
 
 class SliderVariationStateH(rx.State):
