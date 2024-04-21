@@ -4,7 +4,23 @@ from firebase_admin import firestore
 import reflex as rx
 from google.cloud.firestore_v1.base_query import FieldFilter
 from WABI.components.welcome import Login
+import WABI.components.welcome as auth
+from firebase_admin import firestore
 
+
+
+
+class CreatePostings(rx.State):
+    val = ''
+    def handle_posting(self, form_data: dict):
+        title = form_data["title"]
+        desc = form_data["desc"]
+        print(form_data)
+        db = firestore.client()
+        doc_ref = db.collection('posts').document(title)
+        doc_ref.set({'title': title, 'desc': desc, 'Interested': [Login.user]})
+        return rx.redirect('/buddy')
+    
 class CheckboxState(rx.State):
     checked: bool = False
     def set_checked(self, thing: str, checked:bool):
@@ -77,21 +93,33 @@ def buddy_finder() -> rx.Component:
                 rx.popover.content(
                     rx.inset(
                         side="top",
-                        background="url('https://images.unsplash.com/photo-1570288685280-7802a8f8c4fa?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center/cover",
+                        background="url('https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center/cover",
                         height="100px",
                     ),
                     rx.box(
-                        rx.text_area(
-                            placeholder="Write Out An Activity Plan!",
-                            style={"height": 80},
-                        ),
-                        rx.flex(
-                            rx.popover.close(
-                                rx.center(rx.button("Share Activity", size="1"), width='100%')
+                        rx.form(
+                            rx.input(
+                                placeholder="Title of your activity:",
+                                name = 'title',
+                                style={"height":30}
+                            ),  
+                            rx.input(
+                                placeholder="Write Out An Activity Plan!",
+                                name = 'desc',
+                                style={"height": 50},
                             ),
-                            spacing="3",
-                            margin_top="12px",
-                            justify="between",
+                            
+                            rx.flex(
+                                rx.popover.close(
+                                    rx.center(rx.button("Share Activity", type="submit",size="1"), 
+                                             width='100%')
+                                ),
+                                spacing="3",
+                                margin_top="12px",
+                                justify="between",
+                            ),
+                            on_submit=CreatePostings.handle_posting,
+                            reset_on_submit=True
                         ),
                         padding_top="12px",
                     ),
@@ -101,3 +129,6 @@ def buddy_finder() -> rx.Component:
         ),
         width="100%",
     )
+
+
+    
