@@ -68,9 +68,4 @@ def settings() -> rx.Component:
                 on_change=ThemeState.set_gray_color,
             ),
         ),
-        rx.text(
-            "You can edit this page in ",
-            rx.code("{your_app}/pages/settings.py"),
-            size="1",
-        ),
     )
