@@ -95,14 +95,14 @@ equal_style = {
 }
 class Statee(rx.State):
         loaded_data: int = 800
-def dashboardButton(header, unit, color, **kwargs):
+def dashboardButton(header, unit, color, val, **kwargs):
     
 
 
     return rx.button(
         rx.vstack(
             rx.text(header, font_family = 'Helvetica Neue', color = 'black'),
-            rx.text(f'{Statee.loaded_data} {unit}', font_family='Plus Jakarta Sans', weight='bold',font_size = '1.8em', color = 'black'),
+            rx.text(f'{val} {unit}', font_family='Plus Jakarta Sans', weight='bold',font_size = '1.8em', color = 'black'),
             width = '100%',
             align_items = 'center',
         ),

@@ -1,8 +1,11 @@
 from WABI.templates import template, ThemeState
-from WABI.components.dashboardComponents import challengeBox, challengeBodyBox, challengeSmallText, challengeTextBox, dashboardButton, dashboardChallenges, distanceTraveled, calsBurned 
+from WABI.components.dashboardComponents import challengeBox, challengeBodyBox, challengeSmallText, challengeTextBox, dashboardButton, dashboardChallenges 
 import reflex as rx
 from firebase_admin import firestore
 from ..components.welcome import Login
+from google.cloud.firestore_v1.base_query import FieldFilter
+from firebase_admin import firestore
+db = firestore.client()
 
 style1 = {
     "color": "green",
@@ -18,10 +21,7 @@ equal_style = {
     "box_sizing": "border-box",  # Ensure padding is included in the box size
 }
 
-
-
-
-_user_name = "Wabi"
+_user_name = Login.user
 _points = 0
 _animal = "Jaguar"
 _steps = 1000
@@ -53,6 +53,8 @@ class SliderVariationStateH(rx.State):
     def set_value(self, value: int):
         db = firestore.client()
         db.collection('users').document(Login.user).update({'weight': value})
+
+        
 
 class SliderVariationStateV(rx.State):
     value: int = 60
@@ -119,6 +121,7 @@ def dashboard() -> rx.Component:
     Returns:
         The UI for the dashboard page.
     """
+
     template_color = ThemeState.accent_color
     #template_color = f'{template_color}'
     return (rx.vstack(
@@ -133,7 +136,7 @@ def dashboard() -> rx.Component:
             rx.hstack(
                 rx.popover.root(
     rx.popover.trigger(
-        dashboardButton('Daily Steps:', 'steps', 'pink', flex = '20%')
+        dashboardButton('Daily Steps:', 'steps', 'pink', db.collection("users").document('maanvp').get().to_dict()['steps'], flex = '20%')
     ),
     rx.popover.content(
         rx.box(
@@ -146,7 +149,7 @@ def dashboard() -> rx.Component:
 ),
                 rx.popover.root(
     rx.popover.trigger(
-        dashboardButton('Distance Traveled:', 'miles', 'pink', flex = '20%')
+        dashboardButton('Distance Traveled:', 'miles', 'pink', db.collection("users").document('maanvp').get().to_dict()['distance'], flex = '20%')
     ),
     rx.popover.content(
         rx.box(
@@ -158,7 +161,7 @@ def dashboard() -> rx.Component:
 ),
                 rx.popover.root(
     rx.popover.trigger(
-        dashboardButton('Calories Burned:', 'calories', 'pink', flex = '20%')
+        dashboardButton('Calories Burned:', 'calories', 'pink', db.collection("users").document('maanvp').get().to_dict()['calories'], flex = '20%')
     ),
     rx.popover.content(
         rx.box(
