@@ -59,9 +59,24 @@ def buddy_finder() -> rx.Component:
     ]   
     return rx.center(
         rx.vstack(
-            rx.center(
-                rx.heading("Buddy Finder", size="8"),
-                width="100%"    
+        rx.center(
+            rx.heading("Buddy Finder", size="8"),
+            width="100%"
+        ),
+        rx.center(
+            rx.heading("Upcoming Group Activities", size="6"),
+            width="100%"
+        ),
+        rx.accordion.root( 
+            rx.accordion.item(
+                header="Fanum Tax",
+                content="Skibidi Ohio Rizz with Turkish Quandale Dingle",
+                font_size="3em",
+            ),
+            rx.accordion.item(
+                header="Second Item",
+                content="The second accordion item's content",
+                font_size="3em",
             ),
             rx.center(
                 rx.heading("Upcoming Group Activities", size="6"),

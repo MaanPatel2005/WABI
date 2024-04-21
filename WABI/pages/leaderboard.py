@@ -6,6 +6,7 @@ from WABI import styles
 from WABI.templates import template
 
 import reflex as rx
+from firebase_admin import firestore
 # import reflex_local_auth
 
 class SoundEffectStateMonkey(rx.State):
@@ -40,6 +41,9 @@ def sound_effect_monkey():
         ),
     )
 
+def get_initials(name: str):
+    my_str = name.split()
+    return my_str[0][0] + my_str[1][0]
 
 def sound_effect_dolphin():
     return rx.hstack(
@@ -70,9 +74,19 @@ def sound_effect_lion():
         ),
     )
 
+
+def fetch_top_three():
+    db = firestore.client()
+    users_ref = db.collection('users')
+    query = users_ref.order_by('point', direction=firestore.Query.DESCENDING).limit(3)
+    results = query.stream()
+    return (result.to_dict() for result in results)
+
+
 @template(route="/leaderboard", title="Leaderboard")
 
 def leaderboard() -> rx.Component:
+    first, second, third = fetch_top_three()
     
     return rx.center(
     rx.heading("Leaderboard"),
@@ -91,35 +105,35 @@ def leaderboard() -> rx.Component:
         rx.table.body(
             rx.table.row(
                 rx.table.cell(rx.text("1.")),
-                rx.table.cell(rx.avatar(fallback="PP"), style={"paddingRight": "125px"}),
+                rx.table.cell(rx.avatar(fallback=get_initials(first['name'])), style={"paddingRight": "125px"}),
                 rx.table.row_header_cell(
-                    rx.link("Purav Patel"),    
+                    rx.link(first['name']),    
                     style={"paddingRight": "125px"}
                 ),
                 rx.spacer(),
-                rx.table.cell("Points: 1000"),
+                rx.table.cell(f"Points: {first['point']}"),
                 align="center",
             ),
             rx.table.row(
                 rx.table.cell(rx.text("2.")),
-                rx.table.cell(rx.avatar(fallback="DP"), style={"paddingRight": "125px"}),
+                rx.table.cell(rx.avatar(fallback=get_initials(second['name'])), style={"paddingRight": "125px"}),
                 rx.table.row_header_cell(
-                    rx.link("Dhruv Patel"),
+                    rx.link(second['name']),
                     style={"paddingRight": "125px"}
                 ),
                 rx.spacer(),
-                rx.table.cell("Points: 800"),
+                rx.table.cell(f"Points: {second['point']}"),
                 align="center",
             ),
             rx.table.row(
                 rx.table.cell(rx.text("3.")),
-                rx.table.cell(rx.avatar(fallback="MP"), style={"paddingRight": "125px"}),
+                rx.table.cell(rx.avatar(fallback=get_initials(third['name'])), style={"paddingRight": "125px"}),
                 rx.table.row_header_cell(
-                    rx.link("Maan Patel"),
+                    rx.link(third['name']),
                     style={"paddingRight": "125px"}
                 ),
                 rx.spacer(),
-                rx.table.cell("Points: 700"),
+                rx.table.cell(f"Points: {third['point']}"),
                 align="center",
             ),
         ),
