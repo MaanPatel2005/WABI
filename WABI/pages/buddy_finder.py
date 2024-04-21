@@ -1,6 +1,9 @@
 from WABI import styles
 from WABI.templates import template, ThemeState
 
+from firebase_admin import firestore
+
+
 import reflex as rx
 
 @template(route="/buddy", title="Buddy Finder")
@@ -17,7 +20,7 @@ def buddy_finder() -> rx.Component:
             rx.heading("Upcoming Group Activities", size="6"),
             width="100%"
         ),
-        rx.accordion.root(
+        rx.accordion.root( 
             rx.accordion.item(
                 header="Fanum Tax",
                 content="Skibidi Ohio Rizz with Turkish Quandale Dingle",

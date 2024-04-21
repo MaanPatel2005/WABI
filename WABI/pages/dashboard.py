@@ -55,6 +55,8 @@ class SliderVariationStateH(rx.State):
         db = firestore.client()
         db.collection('users').document(Login.user).update({'weight': value})
 
+        
+
 class SliderVariationStateV(rx.State):
     value: int = 60
 
