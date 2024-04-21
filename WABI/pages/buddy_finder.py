@@ -11,15 +11,27 @@ class CheckboxState(rx.State):
         self.checked = not self.checked
         print(thing)
         print(f"This should be my name: {Login.user}")
-        db = firestore.client()
-        docs = (
-            db.collection("posts").where(filter=FieldFilter('title', "==", thing)).stream()
-        )
-        value = next(docs)
-        interested_users = value.get("Interested")
-        interested_users.append(Login.user)
-        print(interested_users)
-        db.collection("posts").document(value.id).update({'Interested': interested_users})
+        if checked:
+            db = firestore.client()
+            docs = (
+                db.collection("posts").where(filter=FieldFilter('title', "==", thing)).stream()
+            )
+            value = next(docs)
+            interested_users = value.get("Interested")
+            interested_users.append(Login.user)
+            print(interested_users)
+            db.collection("posts").document(value.id).update({'Interested': interested_users})
+        else:
+            db = firestore.client()
+            docs = (
+                db.collection("posts").where(filter=FieldFilter('title', "==", thing)).stream()
+            )
+            value = next(docs)
+            interested_users = value.get("Interested")
+            index = interested_users.index(Login.user)
+            interested_users = interested_users[0:index] + interested_users[index + 1:]
+            print(interested_users)
+            db.collection("posts").document(value.id).update({'Interested': interested_users})
 
 @template(route="/buddy", title="Buddy Finder")
 def buddy_finder() -> rx.Component:
