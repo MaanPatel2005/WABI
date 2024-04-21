@@ -109,8 +109,10 @@ def sidebar() -> rx.Component:
     Returns:
         The sidebar component.
     """
-    # Get all the decorated pages and add them to the sidebar.
     from reflex.page import get_decorated_pages
+
+    # Exclude the Sign-In/Sign-Up page from the sidebar
+    excluded_routes = ["/authenticate"]  # Add any other routes you want to exclude
 
     return rx.box(
         rx.vstack(
@@ -121,7 +123,7 @@ def sidebar() -> rx.Component:
                         text=page.get("title", page["route"].strip("/").capitalize()),
                         url=page["route"],
                     )
-                    for page in get_decorated_pages()
+                    for page in get_decorated_pages() if page["route"] not in excluded_routes
                 ],
                 width="100%",
                 overflow_y="auto",
