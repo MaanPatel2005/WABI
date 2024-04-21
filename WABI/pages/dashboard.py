@@ -1,6 +1,8 @@
 from WABI.templates import template, ThemeState
 from WABI.components.dashboardComponents import challengeBox, challengeBodyBox, challengeSmallText, challengeTextBox, dashboardButton
 import reflex as rx
+from firebase_admin import firestore
+from ..components.welcome import Login
 
 style1 = {
     "color": "green",
@@ -38,19 +40,33 @@ class StepsState(rx.State):
         rx.console_log(val)
         if str(val).isdigit():
             self.set_steps(val)
+            db = firestore.client()
+            db.collection('users').document(Login.user).update({'steps': val})
         else:
             self.steps = self.steps
+
+
 class SliderVariationStateH(rx.State):
     value: int = 150
 
     def set_end(self, value: int):
         self.value = value
+    
+    def set_value(self, value: int):
+        db = firestore.client()
+        db.collection('users').document(Login.user).update({'weight': value})
 
 class SliderVariationStateV(rx.State):
     value: int = 60
 
     def set_end(self, value: int):
         self.value = value
+    
+    def set_value(self, value: int):
+        db = firestore.client()
+        db.collection('users').document(Login.user).update({'height': value})
+
+    
 
 
 
@@ -64,6 +80,7 @@ def slider_horizontal():
             min=0,
             max=300,
             on_change=SliderVariationStateH.set_end,
+            on_value_commit=SliderVariationStateH.set_value,
             width = '90%',
             align = 'center',
             justify = 'center',
@@ -83,6 +100,7 @@ def slider_vertical():
             min=0,
             max=120,
             on_change=SliderVariationStateV.set_end,
+            on_value_commit=SliderVariationStateV.set_value,
             orientation = "vertical",
             height = "14em",
             width = "10%",
